@@ -13,12 +13,9 @@ class TopLevelData {
   final bool status;
 
   factory TopLevelData.fromJson(Map<String, dynamic> json) {
-    var jsonData = json["data"]["memes"] as List;
-    List<Memes> memes = jsonData.map((item) => Memes.fromJson(item)).toList();
-
     return TopLevelData(
       status: json["success"] as bool? ?? false,
-      data: DataList(memes: memes),
+      data: DataList.fromJson(json["data"]),
     );
   }
 }
