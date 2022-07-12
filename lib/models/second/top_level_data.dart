@@ -1,5 +1,4 @@
-import 'package:working_with_api/data_list.dart';
-import 'package:working_with_api/memes.dart';
+import 'package:working_with_api/models/second/data_list.dart';
 
 //https://api.imgflip.com/get_memes
 
