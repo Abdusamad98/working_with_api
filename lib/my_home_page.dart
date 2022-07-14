@@ -5,6 +5,7 @@ import 'package:flutter_linkify/flutter_linkify.dart';
 
 import 'package:linkify/linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:working_with_api/models/fourth/my_top_level_data.dart';
 import 'package:working_with_api/models/second/top_level_data.dart';
 import 'package:working_with_api/models/first/user_data.dart';
 import 'package:working_with_api/models/third/story_entity/top_level.dart';
@@ -24,74 +25,16 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text("Working with API Example 3"),
       ),
-      body: FutureBuilder<TopLevel>(
-        future: Repository.getStories(),
-        builder: (BuildContext context, AsyncSnapshot<TopLevel> snapshot) {
+      body: FutureBuilder<MyTopLevelData>(
+        future: Repository.getMyTopLevelData(),
+        builder: (BuildContext context, AsyncSnapshot<MyTopLevelData> snapshot) {
           if (snapshot.hasData) {
             var data = snapshot.data!;// TopLevel
             return Container(
               margin: EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Status"),
-                      Text(data.status),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text("Copyright"),
-                      SizedBox(width: 10),
-                      Expanded(child: Text(data.copyright)),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Count"),
-                      Text(data.section),
-                    ],
-                  ),
-                  Expanded(
-                      child: ListView.builder(
-                    itemCount: data.results.length,
-                    itemBuilder: (BuildContext context, index) {
-                      var item = data.results[index];
-                      return Container(
-                        padding: EdgeInsets.all(16),
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 10,
-                                color: Colors.grey.shade300,
-                                spreadRadius: 10,
-                                offset:const Offset(1, 5),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(12),
-                            color: Colors.white),
-                        child: Column(
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Title"),
-                                SizedBox(width: 10,),
-                                Expanded(child: Text(item.title))
-                              ],
-                            )
-                          ],
-                        ),
-                      );
-                    },
-                  ))
-                ],
-              ),
+              child: Center(
+                child: Text(data.myMetadata.identifier),
+              )
             );
           } else if (snapshot.hasError) {
             return Center(child: Text("Error ocurred"));

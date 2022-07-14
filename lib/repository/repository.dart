@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:working_with_api/models/first/user_data.dart';
 import 'package:http/http.dart' as https;
+import 'package:working_with_api/models/fourth/my_top_level_data.dart';
 import 'package:working_with_api/models/second/top_level_data.dart';
 import 'package:working_with_api/models/third/story_entity/top_level.dart';
 
@@ -49,6 +50,24 @@ class Repository {
         var myDecodedJSON = jsonDecode(response.body);
         // print(myDecodedJSON["results"][0]["des_facet"][0]);
         return TopLevel.fromJson(myDecodedJSON);
+      } else
+        throw Exception();
+    } catch (e) {
+      print(e);
+      throw Exception();
+    }
+  }
+
+
+  static Future<MyTopLevelData> getMyTopLevelData() async {
+    try {
+      Response response = await https.get(Uri.parse(
+          "https://archive.org/metadata/TheAdventuresOfTomSawyer_201303"));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        var myDecodedJSON = jsonDecode(response.body);
+        print(myDecodedJSON.toString());
+        // print(myDecodedJSON["results"][0]["des_facet"][0]);
+        return MyTopLevelData.fromJson(myDecodedJSON);
       } else
         throw Exception();
     } catch (e) {
